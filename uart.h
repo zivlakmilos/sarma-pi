@@ -1,7 +1,11 @@
 #ifndef _UART_H_
 #define _UART_H_
 
+#ifdef PI4
+#define IO_BASE_ADDR 0xfe200000
+#else // PI3
 #define IO_BASE_ADDR 0x3f200000
+#endif
 
 #define UART0_DR IO_BASE_ADDR + 0x1000
 #define UART0_FR IO_BASE_ADDR + 0x1018

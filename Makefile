@@ -28,8 +28,13 @@ kernel: link.ld $(objects)
 kernel.img: kernel
 	$(OBJC) $(OBJCFLAGS) $< $@
 
-run: kernel.img
+runp3: kernel.img
 	qemu-system-aarch64 -M raspi3b -serial stdio -kernel kernel.img
+
+runp4: kernel.img
+	qemu-system-aarch64 -M raspi4b -serial stdio -kernel kernel.img
+
+run: runp3
 
 clean:
 	rm -Rf $(objects) kernel kernel.img
