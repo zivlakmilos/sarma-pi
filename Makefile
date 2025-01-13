@@ -13,6 +13,7 @@ objects = \
 	lib.o \
 	uart.o \
 	print.o \
+	debug.o \
 	main.o
 
 all: kernel.img
