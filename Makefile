@@ -10,6 +10,8 @@ OBJCFLAGS = -O binary
 
 objects = \
 	boot.o \
+	lib.o \
+	uart.o \
 	main.o
 
 all: kernel.img
