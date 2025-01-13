@@ -2,6 +2,7 @@
 #include "lib.h"
 #include "print.h"
 #include "stdint.h"
+#include "uart.h"
 
 void enable_timer(void);
 uint32_t read_timer_status(void);
@@ -10,6 +11,14 @@ uint32_t read_timer_freq(void);
 
 static uint32_t timer_interval = 0;
 static uint64_t ticks = 0;
+
+void init_interrupt_controller(void) {
+  out_word(DISABLE_BASIC_IRQS, 0xfffffffff);
+  out_word(DISABLE_IRQS_1, 0xfffffffff);
+  out_word(DISABLE_IRQS_2, 0xfffffffff);
+
+  out_word(ENABLE_IRQS_2, (1 << 25));
+}
 
 void init_timer(void) {
   timer_interval = read_timer_freq() / 100;
@@ -28,6 +37,8 @@ void timer_interrupt_handler(void) {
   }
 }
 
+static uint32_t get_irq_number(void) { return in_word(IRQ_BASIC_PENDING); }
+
 void handler(uint64_t numid, uint64_t esr, uint64_t elr) {
   uint32_t irq;
 
@@ -42,8 +53,13 @@ void handler(uint64_t numid, uint64_t esr, uint64_t elr) {
     if (irq & (1 << 1)) {
       timer_interrupt_handler();
     } else {
-      printk("uknown irq\r\n");
-      while (1) {
+      irq = get_irq_number();
+      if (irq & (1 << 19)) {
+        uart_handler();
+      } else {
+        printk("uknown irq\r\n");
+        while (1) {
+        }
       }
     }
     break;
