@@ -12,6 +12,7 @@ objects = \
 	boot.o \
 	lib.o \
 	uart.o \
+	print.o \
 	main.o
 
 all: kernel.img
