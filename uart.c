@@ -22,8 +22,7 @@ void write_string(const char *string) {
 void init_uart(void) {
   out_word(UART0_CR, 0);
   out_word(UART0_IBRD, 26);
-  out_word(UART0_IBRD, 0);
-  out_word(UART0_LCRH, (1 << 4) | (1 << 5) | (1 << 6));
+  out_word(UART0_FBRD, 0);
   out_word(UART0_LCRH, (1 << 4) | (1 << 5) | (1 << 6));
   out_word(UART0_IMSC, 0);
   out_word(UART0_CR, (1 << 0) | (1 << 8) | (1 << 9));
