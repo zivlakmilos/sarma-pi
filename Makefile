@@ -14,6 +14,8 @@ objects = \
 	uart.o \
 	print.o \
 	debug.o \
+	handler.o \
+	handlera.o \
 	main.o
 
 all: kernel.img
