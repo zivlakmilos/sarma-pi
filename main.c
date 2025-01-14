@@ -10,10 +10,12 @@ void KMain(void) {
   printk("Hello, Raspberry Pi\r\n");
   printk("We are at EL %u\r\n", (uint64_t)get_el());
 
-  // init_timer();
+  init_timer();
   init_interrupt_controller();
-  enable_irq();
+  // enable_irq();
 
+  /*
   while (1) {
   }
+  */
 }
